@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>document.domain</title>
+</head>
+<body>
+
+
+    <h3>document.domain 验证</h3>
+
+    <script>
+        document.domain = 'document-domain.com'
+        const ifra = document.createElement('iframe')
+
+        ifra.src = 'http://a.document-domain.com:1234/public/a.document-domain.html'
+        document.body.appendChild(ifra)
+        ifra.onload = () => {
+            var data = ifra.contentDocument || ifra.contentWindow.document;
+            console.log(`当前时间 ${Date.now()}: debug 的数据是 data: `, data)
+            console.log(`当前时间 ${Date.now()}: 代码走到了这里 hello`)
+        }
+    </script>
+</body>
+</html>
