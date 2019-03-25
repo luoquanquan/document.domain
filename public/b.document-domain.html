@@ -12,7 +12,7 @@
     <h3>document.domain 验证</h3>
 
     <script>
-        // document.domain = 'document-domain.com'
+        document.domain = 'document-domain.com'
         const ifra = document.createElement('iframe')
 
         ifra.src = 'http://a.document-domain.com:1234/public/a.document-domain.html'
@@ -22,6 +22,24 @@
             console.log(`当前时间 ${Date.now()}: debug 的数据是 data: `, data)
             console.log(`当前时间 ${Date.now()}: 代码走到了这里 hello`)
         }
+    </script>
+
+<script>
+        const xhr = new XMLHttpRequest()
+        xhr.open('GET', 'http://document-domain.com:1234/')
+        xhr.onload = data => {
+            console.log(`当前时间 ${Date.now()}: debug 的数据是 data: `, data)
+        }
+
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === 4) {
+                if(xhr.status >= 200 && xhr.status < 400 ||  xhr.status === 304) {
+                    const data = xhr.responseText
+                    console.log(`当前时间 ${Date.now()}: debug 的数据是 data: `, data)
+                }
+            }
+        }
+        xhr.send()
     </script>
 </body>
 </html>
