@@ -13,5 +13,23 @@
     <script>
         document.domain = 'document-domain.com'
     </script>
+
+<script>
+        const xhr = new XMLHttpRequest()
+        xhr.open('GET', 'http://document-domain.com:1234/')
+        xhr.onload = data => {
+            console.log(`当前时间 ${Date.now()}: debug 的数据是 data: `, data)
+        }
+
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === 4) {
+                if(xhr.status >= 200 && xhr.status < 400 ||  xhr.status === 304) {
+                    const data = xhr.responseText
+                    console.log(`当前时间 ${Date.now()}: debug 的数据是 data: `, data)
+                }
+            }
+        }
+        xhr.send()
+    </script>
 </body>
 </html>
