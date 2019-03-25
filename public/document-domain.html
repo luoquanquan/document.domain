@@ -12,6 +12,7 @@
     <h3>document.domain 验证</h3>
 
     <script>
+        document.domain = 'document-domain.com'
         const ifra = document.createElement('iframe')
 
         ifra.src = 'http://a.document-domain.com:1234/public/a.document-domain.html'
